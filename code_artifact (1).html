@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夢女偷看夢角內褲模擬器 💕 秘密房間窺探計畫</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts 繁體中文圓體與襯線字體增添浪漫氛圍 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Canvas Confetti 慶祝愛心噴發特效 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    },
+                    colors: {
+                        cream: '#FFFDF9',
+                        blush: '#FFF0F5',
+                        roseSoft: '#FFE4EC',
+                        roseMain: '#F43F5E',
+                        wineDark: '#4C0519',
+                        wineMid: '#881337',
+                        lavenderSoft: '#F5F3FF',
+                    },
+                    animation: {
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                        'glow-pulse': 'glowPulse 2s infinite',
+                    },
+                    keyframes: {
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '14%': { transform: 'scale(1.12)' },
+                            '28%': { transform: 'scale(1)' },
+                            '42%': { transform: 'scale(1.12)' },
+                            '70%': { transform: 'scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
+                        },
+                        glowPulse: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(244, 63, 94, 0.4), 0 0 30px rgba(217, 70, 239, 0.2)' },
+                            '50%': { boxShadow: '0 0 25px rgba(244, 63, 94, 0.8), 0 0 45px rgba(217, 70, 239, 0.5)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 自訂浪漫背景紋理與蕾絲邊框細節 */
+        body {
+            background-color: #FFF5F7;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 228, 230, 0.8) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(243, 232, 255, 0.8) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(254, 205, 211, 0.6) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(255, 241, 242, 0.9) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: #4C0519;
+        }
+
+        /* 蕾絲虛線裝飾邊框 */
+        .lace-border {
+            border: 2px dashed rgba(244, 63, 94, 0.35);
+        }
+
+        /* 門縫動畫與光影 */
+        .door-overlay {
+            perspective: 1200px;
+        }
+        .door-panel {
+            transform-origin: left center;
+            transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .door-peek .door-panel {
+            transform: rotateY(-28deg);
+        }
+        .door-slam .door-panel {
+            transform: rotateY(-105deg);
+        }
+
+        /* 卡片進場動畫 */
+        @keyframes cardReveal {
+            0% { opacity: 0; transform: translateY(18px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-card-reveal {
+            animation: cardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* 稀有度流光漸層 */
+        .ssr-card-bg {
+            background: linear-gradient(135deg, #FFFDF9 0%, #FFF0F5 45%, #F5F3FF 100%);
+            border: 2px solid #F43F5E;
+        }
+        .sr-card-bg {
+            background: linear-gradient(135deg, #FFFDF9 0%, #FFF1F2 100%);
+            border: 2px solid #FB7185;
+        }
+        .r-card-bg {
+            background: #FFFDF9;
+            border: 1.5px solid #FECDD3;
+        }
+
+        /* 隱藏滾動條但保持可滾動 */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 228, 230, 0.4);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(244, 63, 94, 0.35);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(244, 63, 94, 0.6);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-6 px-4 sm:px-6 lg:px-8 selection:bg-rose-200 selection:text-wineDark">
+
+    <!-- 飄浮愛心背景裝飾 (純視覺微點綴) -->
+    <div id="floating-hearts-bg" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+    <!-- 主容器 -->
+    <main class="relative z-10 w-full max-w-2xl space-y-6">
+
+        <!-- 頂部標題與浪漫裝飾區 -->
+        <header class="text-center space-y-2 pt-2">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-rose-200 shadow-sm text-xs font-bold tracking-widest text-rose-600 uppercase">
+                <i class="fa-solid fa-key animate-pulse"></i>
+                <span>SECRET ROOM PEEKING SIMULATOR</span>
+                <i class="fa-solid fa-heart text-rose-500 animate-heartbeat"></i>
+            </div>
+            
+            <h1 class="font-serif text-3xl sm:text-4xl font-black tracking-tight text-wineDark drop-shadow-sm">
+                夢女偷看夢角內褲模擬器
+            </h1>
+            <p class="text-sm sm:text-base text-wineMid/80 max-w-md mx-auto leading-relaxed">
+                門縫裡透出曖昧的微光，心跳聲在耳邊無限放大……<br class="hidden sm:inline">今天門後的「他」，會讓你看見什麼樣的秘密風景呢？
+            </p>
+        </header>
+
+        <!-- 輸入設定卡片 -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-xl shadow-rose-900/5 border border-rose-100">
+            <div class="lace-border rounded-2xl p-4 sm:p-5 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-1 border-b border-rose-100">
+                    <h2 class="text-sm font-bold text-wineDark flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                        </span>
+                        角色檔案設定
+                    </h2>
+                    <button type="button" onclick="fillPresetNames()" class="text-xs font-medium text-rose-600 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        隨機夢角範本
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- User 名字輸入 -->
+                    <div class="space-y-1.5">
+                        <label for="userNameInput" class="block text-xs font-bold text-wineMid ml-1">
+                            你的名字 (User名)
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-400">
+                                <i class="fa-solid fa-user-pen text-sm"></i>
+                            </span>
+                            <input type="text" id="userNameInput" placeholder="預設：你" maxlength="20"
+                                class="w-full pl-10 pr-4 py-2.5 bg-cream border border-rose-200 rounded-xl text-sm font-medium text-wineDark placeholder-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+
+                    <!-- 夢角名字輸入 -->
+                    <div class="space-y-1.5">
+                        <label for="charNameInput" class="block text-xs font-bold text-wineMid ml-1">
+                            夢角名字 (預設男性角色)
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-rose-400">
+                                <i class="fa-solid fa-crown text-sm"></i>
+                            </span>
+                            <input type="text" id="charNameInput" placeholder="預設：他" maxlength="20"
+                                class="w-full pl-10 pr-4 py-2.5 bg-cream border border-rose-200 rounded-xl text-sm font-medium text-wineDark placeholder-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 互動按鈕區 -->
+                <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <button type="button" id="btnPeek" onclick="triggerAction('peek')"
+                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-pink-400 via-rose-400 to-purple-400 p-[2px] shadow-md hover:shadow-lg hover:shadow-rose-300/40 active:scale-[0.98] transition-all cursor-pointer">
+                        <div class="relative flex items-center justify-center gap-2.5 rounded-[14px] bg-white/95 group-hover:bg-white/85 px-5 py-3.5 transition-all">
+                            <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-eye"></i>
+                            </span>
+                            <div class="text-left">
+                                <div class="text-base font-black text-wineDark">稍稍偷看</div>
+                                <div class="text-[11px] font-medium text-rose-500">屏住呼吸，輕輕推開一條門縫…</div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button type="button" id="btnOpen" onclick="triggerAction('open')"
+                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-rose-600 via-wineMid to-purple-800 px-5 py-3.5 text-white shadow-lg shadow-rose-900/20 hover:shadow-xl hover:shadow-rose-600/30 active:scale-[0.98] transition-all cursor-pointer">
+                        <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative flex items-center justify-center gap-2.5">
+                            <span class="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center group-hover:rotate-12 transition-transform">
+                                <i class="fa-solid fa-door-open"></i>
+                            </span>
+                            <div class="text-left">
+                                <div class="text-base font-black tracking-wide">直接打開門</div>
+                                <div class="text-[11px] font-medium text-rose-200">氣勢十足！一把推開房門突襲！</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 門扉過場動畫與結果展示區 -->
+        <section id="stageSection" class="relative min-h-[260px] flex flex-col justify-center">
+            
+            <!-- 初始待機狀態 -->
+            <div id="idleState" class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 text-center border border-rose-100 shadow-lg space-y-4">
+                <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-rose-100 to-purple-100 flex items-center justify-center text-rose-500 text-3xl shadow-inner animate-float">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="space-y-1">
+                    <h3 class="font-serif text-lg font-bold text-wineDark">房門正虛掩著……</h3>
+                    <p class="text-xs sm:text-sm text-wineMid/70">輸入你們的名字，選擇「稍稍偷看」或「直接打開門」揭曉他的秘密吧！</p>
+                </div>
+            </div>
+
+            <!-- 開門過場動畫遮罩 (點擊按鈕時短暫顯示) -->
+            <div id="doorAnimationBox" class="hidden rounded-3xl overflow-hidden shadow-2xl border-2 border-rose-300 bg-wineDark h-[280px] relative door-overlay">
+                <!-- 門後光芒背景 -->
+                <div id="doorLightBg" class="absolute inset-0 bg-gradient-to-r from-amber-100 via-rose-100 to-pink-200 flex items-center justify-center">
+                    <div class="text-center space-y-2 animate-pulse">
+                        <i class="fa-solid fa-heart text-4xl text-rose-500"></i>
+                        <p id="doorActionText" class="font-serif font-bold text-wineDark text-lg tracking-widest">心跳加速中……</p>
+                    </div>
+                </div>
+                <!-- 房門門板 -->
+                <div id="doorPanel" class="door-panel absolute inset-0 bg-gradient-to-br from-[#5C1A2B] via-[#450D1C] to-[#2B0510] border-r-4 border-amber-300/60 flex items-center justify-end pr-8 shadow-2xl">
+                    <!-- 歐式雕花門框線條 -->
+                    <div class="absolute inset-4 border border-amber-200/20 rounded-xl pointer-events-none"></div>
+                    <!-- 金色門把 -->
+                    <div class="w-4 h-12 rounded-full bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 shadow-lg flex items-center justify-center">
+                        <div class="w-1.5 h-1.5 rounded-full bg-amber-900"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 抽卡結果顯示卡片 -->
+            <div id="resultCard" class="hidden rounded-3xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden">
+                <!-- 頂部標籤列：事件稀有度 & 成就徽章 -->
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                    <span id="rarityBadge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black tracking-wider shadow-sm">
+                        <!-- 動態填入稀有度 -->
+                    </span>
+                    <span id="achievementBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-wineDark/5 text-wineDark border border-wineDark/10">
+                        <!-- 動態填入事件成就名稱 -->
+                    </span>
+                </div>
+
+                <!-- 視覺情報小標籤 (內褲款式或特殊狀態摘要) -->
+                <div id="visualSummaryBox" class="mb-5 p-3.5 rounded-2xl bg-white/80 border border-rose-200/80 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+                    <!-- 動態填入款式標籤 -->
+                </div>
+
+                <!-- 主要劇情文案展示區 -->
+                <div class="relative bg-white/95 rounded-2xl p-5 sm:p-6 border border-rose-100 shadow-inner mb-6">
+                    <i class="fa-solid fa-quote-left absolute top-3 left-3.5 text-rose-200 text-xl"></i>
+                    <p id="storyOutput" class="font-serif text-base sm:text-lg leading-loose text-wineDark font-semibold pl-4 pr-2">
+                        <!-- 動態生成結果文本 -->
+                    </p>
+                    <i class="fa-solid fa-quote-right absolute bottom-3 right-3.5 text-rose-200 text-xl"></i>
+                </div>
+
+                <!-- 底部操作按鈕：複製分享文案 & 再偷看一次 -->
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <button type="button" onclick="copyResultText()"
+                        class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-wineDark font-bold text-xs sm:text-sm transition-colors cursor-pointer">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>複製小劇場文案</span>
+                    </button>
+
+                    <div class="flex items-center gap-2 flex-1 sm:flex-none justify-end">
+                        <button type="button" onclick="triggerAction('peek')"
+                            class="px-3.5 py-2.5 rounded-xl bg-white border border-rose-200 hover:bg-rose-50 text-rose-600 font-bold text-xs sm:text-sm transition-colors cursor-pointer">
+                            <i class="fa-solid fa-eye mr-1"></i>再偷看
+                        </button>
+                        <button type="button" onclick="triggerAction('open')"
+                            class="px-3.5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-colors cursor-pointer">
+                            <i class="fa-solid fa-door-open mr-1"></i>再推門
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 圖鑑收集進度與抽取紀錄區 -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-xl shadow-rose-900/5 border border-rose-100 space-y-5">
+            
+            <!-- 圖鑑收集進度條 -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-sm sm:text-base font-black text-wineDark flex items-center gap-2">
+                        <i class="fa-solid fa-book-heart text-rose-500"></i>
+                        秘密事件圖鑑收集
+                    </h2>
+                    <span id="collectionCounter" class="text-xs font-black px-2.5 py-1 rounded-full bg-rose-100 text-rose-700">
+                        0 / 5 已解鎖
+                    </span>
+                </div>
+
+                <!-- 進度條 -->
+                <div class="w-full h-2.5 bg-rose-100 rounded-full overflow-hidden">
+                    <div id="collectionProgressBar" class="h-full bg-gradient-to-r from-rose-400 via-pink-500 to-purple-500 transition-all duration-500 rounded-full" style="width: 0%"></div>
+                </div>
+
+                <!-- 5種事件徽章清單 -->
+                <div id="encyclopediaGrid" class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
+                    <!-- 由 JS 動態渲染 5 個成就槽位 -->
+                </div>
+            </div>
+
+            <hr class="border-rose-100">
+
+            <!-- 抽取歷史紀錄清單 -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-wineDark flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-rose-400"></i>
+                        本次窺探紀錄 (<span id="historyCount">0</span>)
+                    </h3>
+                    <button type="button" onclick="clearHistory()" class="text-xs text-rose-400 hover:text-rose-600 transition-colors cursor-pointer">
+                        清空紀錄
+                    </button>
+                </div>
+
+                <div id="historyList" class="max-h-60 overflow-y-auto custom-scrollbar space-y-2.5 pr-1">
+                    <div class="text-center py-6 text-xs text-rose-300 italic">
+                        還沒有偷看紀錄喔，快去門縫邊試試手氣吧～
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 頁尾 -->
+        <footer class="text-center text-xs text-wineMid/50 pb-6">
+            純屬夢女向趣味娛樂模擬器・祝各位太太都能與夢角甜甜貼貼 💕
+        </footer>
+    </main>
+
+    <!-- 複製成功提示 Toast (取代 alert) -->
+    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+        <div class="bg-wineDark text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2.5 text-sm font-bold border border-rose-400/30">
+            <i class="fa-solid fa-circle-check text-rose-400"></i>
+            <span id="toastMessage">已複製小劇場文案到剪貼簿！</span>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. 豐富繁體中文詞庫定義
+        // ==========================================
+        const WORD_BANK = {
+            // 男士內褲種類 (14種)
+            mensTypes: [
+                "貼身四角褲", "寬鬆平口褲", "低腰三角褲", "運動機能緊身褲",
+                "無痕冰絲內褲", "高衩三角褲", "丁字褲", "針織棉質四角褲",
+                "前開扣平口褲", "蕾絲男用內褲", "緞面絲質四角褲", "運動囊袋三角褲",
+                "莫代爾透氣平口褲", "低腰網眼三角褲"
+            ],
+            // 男士內褲顏色 (15種)
+            mensColors: [
+                "深邃黑", "純淨白", "海軍藍", "酒紅色", "煙燻灰",
+                "軍綠色", "暗夜紫", "焦糖棕", "寶石藍", "炭灰色",
+                "象牙白", "勃艮第紅", "霧霾藍", "香檳金", "曜石黑"
+            ],
+            // 男士內褲花紋 (15種)
+            mensPatterns: [
+                "素面純色", "經典英倫格紋", "細條紋", "滿版小熊印花",
+                "迷彩圖騰", "幾何線條", "可愛小恐龍圖案", "暗紋提花",
+                "品牌字母寬邊帶", "波點圓點", "慵懶貓咪印花", "星空銀河圖案",
+                "豹紋野性印花", "極簡滾邊設計", "復古佩斯利花紋"
+            ],
+            // 女士內褲種類 (12種)
+            womensTypes: [
+                "蕾絲花邊三角褲", "蝴蝶結緞帶低腰褲", "純棉少女三角褲", "鏤空繫帶丁字褲",
+                "荷葉邊蓬蓬安全褲", "網紗透視三角褲", "高腰包臀蕾絲褲", "絲綢無痕小褲褲",
+                "吊帶襪配套蕾絲褲", "雙側綁帶比基尼褲", "法式刺繡半包臀褲", "珍珠開檔情趣小褲"
+            ],
+            // 女士內褲顏色 (13種)
+            womensColors: [
+                "櫻花粉", "純欲白", "魅惑黑", "薰衣草紫", "水藍色",
+                "蜜桃粉", "酒紅絲絨", "薄荷綠", "草莓牛奶粉", "香檳裸色",
+                "勃艮第酒紅", "鵝黃色", "奶油杏色"
+            ],
+            // 女士內褲花紋 (13種)
+            womensPatterns: [
+                "精緻雕花蕾絲", "小草莓印花", "蝴蝶結點綴", "愛心刺繡",
+                "波點網紗", "小雛菊碎花", "緞帶交叉綁帶", "純色絲滑",
+                "貓耳蕾絲邊", "格子百褶邊", "珍珠鏈條裝飾", "荷葉褶皺",
+                "玫瑰藤蔓刺繡"
+            ],
+            // 夢角的動作 (20種)
+            actions: [
+                "剛洗完澡正拿著毛巾擦拭滴水的頭髮",
+                "單手插腰站在全身鏡前檢視身材",
+                "正彎腰在衣櫃抽屜裡翻找衣服",
+                "毫無防備地趴在床上滑手機",
+                "剛把長褲脫到一半、正準備換衣服",
+                "緩緩轉過頭與你四目相對",
+                "不僅沒遮擋，反而大方地轉了一圈給你欣賞",
+                "順手抓起旁邊的枕頭遮住重點部位",
+                "雙手抱胸靠在床柱旁，一動也不動地看著你",
+                "正伸懶腰，結實的腹肌線條一覽無遺",
+                "剛喝完水，喉結隨著吞嚥動作上下滾動",
+                "迅速拉起被子把自己裹成一團",
+                "單手扶著門框，一步步朝你的方向走過來",
+                "嘴角勾起一抹壞笑，故意朝你挑了挑眉",
+                "正在整理微亂的襯衫下擺",
+                "呆愣在原地，手裡還拿著剛脫下來的長褲",
+                "慢條斯理地調整了一下褲頭鬆緊帶",
+                "突然加快腳步想過來把門關上",
+                "單膝跪在床邊，正低頭尋找掉落的東西",
+                "靠在窗邊吹風，微風輕輕拂過他的髮梢"
+            ],
+            // 夢角的反應 (20種)
+            reactions: [
+                "毫無反應，彷彿被看光也無所謂一樣淡定",
+                "瞬間害羞到耳根與脖頸都染上一層薄紅",
+                "眼神裡閃過一絲驚慌，隨即化為無奈的寵溺",
+                "嘴角揚起戲謔的弧度，似乎早料到你會偷看",
+                "眉頭微皺，露出一副「真拿你沒辦法」的表情",
+                "眼神變得幽深暗沉，像是反過來鎖定了獵物一樣危險",
+                "一臉呆滯，大腦顯然還沒處理完眼前的突發狀況",
+                "故意裝作若無其事，但微顫的指尖出賣了他的緊張",
+                "臉頰微燙，眼神閃躲著不敢直視你的眼睛",
+                "看起來不但不生氣，反而因為被你看到而有些得意",
+                "呼吸微微一滯，喉嚨裡發出一聲低沉的輕笑",
+                "露出了像大型犬被捉弄般的委屈又無辜眼神",
+                "氣定神閒地反問你「看夠了嗎？」",
+                "整個人僵成雕像，連眨眼都忘記了",
+                "眼神裡帶著幾分挑釁，彷彿在邀請你靠得更近一點",
+                "羞恥得想找個地方躲起來，卻又捨不得對你發脾氣",
+                "表情管理徹底失控，露出了平時難得一見的慌亂模樣",
+                "眼神溫柔得快要滴出水來，包容著你所有的惡作劇",
+                "低頭輕咳了一聲，耳尖卻紅得快要滴血",
+                "瞇起眼睛危險地笑著，看起來等會兒絕對不會放過你"
+            ],
+            // 特殊事件：穿了 User 內褲的專屬動作與反應 (更貼合情境)
+            crossdressActions: [
+                "正對著穿衣鏡勉強拉扯著過於緊繃的布料",
+                "雙手捂著臉蹲在床邊，試圖把身形縮到最小",
+                "剛套上還沒來得及拉好，就被你抓個正著",
+                "正低頭研究著上面精緻的蕾絲花邊，動作瞬間僵住",
+                "慌亂地抓起旁邊的浴巾想往腰間圍上去",
+                "站在原地進退兩難，布料被撐出極具張力的輪廓"
+            ],
+            crossdressReactions: [
+                "耳根通紅、羞恥到恨不得當場找個地洞鑽進去",
+                "眼神極度慌亂，結結巴巴地想解釋「這只是好奇試穿一下」",
+                "破罐子破摔般紅著臉別過頭，小聲嘟囔「……不准笑」",
+                "整個人像煮熟的蝦子一樣從頭紅到腳趾尖",
+                "又羞又惱地瞪了你一眼，眼眶卻微微泛紅",
+                "呆若木雞，大腦完全當機，連遮擋都忘記了"
+            ],
+            // 特殊事件：正在 DIY 的專屬動作與反應
+            diyActions: [
+                "原本沉醉其中的動作瞬間僵住，呼吸急促地抬頭望向門口",
+                "手裡還緊緊攥著那件柔軟的布料，指節因為用力而微微泛白",
+                "聽到動靜猛地一顫，想藏卻已經來不及了",
+                "半靠在床頭，眼尾泛紅、額角帶著薄汗地與你對視",
+                "喉結劇烈滾動了一下，手上的動作卻在與你對視後變得更慢、更重"
+            ],
+            diyReactions: [
+                "眼神既慌亂又帶著被慾望染紅的危險氣息",
+                "羞恥與興奮交織，啞著嗓子低聲叫了你的名字",
+                "眼底暗潮洶湧，彷彿下一秒就要把門口的你直接拉進懷裡",
+                "耳尖紅得滴血，卻沒有鬆開手，反而帶著幾分破罐破摔的挑釁",
+                "呼吸紊亂、眼神迷離，露出了平時絕對不會在外人面前展現的脆弱與渴望"
+            ],
+            // 特殊事件：夢角不在時的撩人台詞
+            absentQuotes: [
+                "「在期待什麼呢？」",
+                "「又想做什麼壞事？」",
+                "「門沒鎖，不用偷看也可以直接進來。」",
+                "「找我嗎？剛才在後面看著你踮腳尖很久了。」",
+                "「這麼想看的話，不如我親自脫給你看？」",
+                "「抓到一隻準備偷腥的小貓咪呢。」"
+            ],
+            // 預設夢角範本組合
+            presets: [
+                { user: "小雪", char: "陸沉" },
+                { user: "千夏", char: "五條悟" },
+                { user: "星野", char: "沈星回" },
+                { user: "璃月", char: "黎深" },
+                { user: "小魚", char: "祁煜" },
+                { user: "晚晚", char: "秦徹" },
+                { user: "知夏", char: "夏以晝" },
+                { user: "你", char: "他" }
+            ]
+        };
+
+        // ==========================================
+        // 2. 圖鑑成就系統配置 (共 5 種事件)
+        // ==========================================
+        const EVENT_CATALOG = [
+            {
+                id: "normal",
+                title: "日常風景",
+                rarity: "R",
+                icon: "fa-shirt",
+                desc: "正常穿著男士內褲",
+                prob: 0.68 // 68%
+            },
+            {
+                id: "no_underwear",
+                title: "真空突襲",
+                rarity: "SR",
+                icon: "fa-fire-flame-curved",
+                desc: "他根本沒穿內褲！",
+                prob: 0.10 // 10% (累計 0.78)
+            },
+            {
+                id: "absent",
+                title: "反將一軍",
+                rarity: "SSR",
+                icon: "fa-user-secret",
+                desc: "夢角不在，在身後抓包",
+                prob: 0.08 // 8% (累計 0.86)
+            },
+            {
+                id: "diy",
+                title: "秘密現場",
+                rarity: "SSR",
+                icon: "fa-heart-crack",
+                desc: "拿著你的內褲正在 DIY",
+                prob: 0.08 // 8% (累計 0.94)
+            },
+            {
+                id: "wear_user",
+                title: "禁忌的尺寸",
+                rarity: "SSR",
+                icon: "fa-ribbon",
+                desc: "居然穿著你的女士內褲",
+                prob: 0.06 // 6% (累計 1.00)
+            }
+        ];
+
+        // 狀態管理
+        let unlockedEvents = new Set();
+        let drawHistory = [];
+        let lastShareText = "";
+        let isAnimating = false;
+
+        // ==========================================
+        // 3. 初始化與儲存載入
+        // ==========================================
+        window.addEventListener("DOMContentLoaded", () => {
+            // 載入上次輸入的名字與已解鎖圖鑑
+            try {
+                const savedUser = localStorage.getItem("dream_peek_user");
+                const savedChar = localStorage.getItem("dream_peek_char");
+                const savedUnlocked = JSON.parse(localStorage.getItem("dream_peek_unlocked") || "[]");
+                
+                if (savedUser) document.getElementById("userNameInput").value = savedUser;
+                if (savedChar) document.getElementById("charNameInput").value = savedChar;
+                if (Array.isArray(savedUnlocked)) {
+                    unlockedEvents = new Set(savedUnlocked);
+                }
+            } catch (e) {
+                console.warn("無法讀取本地儲存紀錄", e);
+            }
+
+            renderEncyclopedia();
+            spawnBackgroundHearts();
+        });
+
+        // 隨機選擇陣列元素工具
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // 一鍵填入隨機範本
+        function fillPresetNames() {
+            const currentChar = document.getElementById("charNameInput").value.trim();
+            let candidates = WORD_BANK.presets.filter(p => p.char !== currentChar);
+            const chosen = pickRandom(candidates);
+            document.getElementById("userNameInput").value = chosen.user;
+            document.getElementById("charNameInput").value = chosen.char;
+            showToast(`已填入範本：${chosen.user} & ${chosen.char} 💕`);
+        }
+
+        // ==========================================
+        // 4. 核心抽卡與開門演出流程
+        // ==========================================
+        function triggerAction(actionType) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            // 取得並保存名字
+            const rawUser = document.getElementById("userNameInput").value.trim();
+            const rawChar = document.getElementById("charNameInput").value.trim();
+            const userName = rawUser || "你";
+            const charName = rawChar || "他";
+
+            try {
+                localStorage.setItem("dream_peek_user", rawUser);
+                localStorage.setItem("dream_peek_char", rawChar);
+            } catch (e) {}
+
+            // 切換顯示過場開門動畫
+            const idleState = document.getElementById("idleState");
+            const resultCard = document.getElementById("resultCard");
+            const doorBox = document.getElementById("doorAnimationBox");
+            const doorActionText = document.getElementById("doorActionText");
+
+            idleState.classList.add("hidden");
+            resultCard.classList.add("hidden");
+            doorBox.classList.remove("hidden", "door-peek", "door-slam", "animate-shake");
+
+            // 強制重繪以觸發 CSS 過渡
+            void doorBox.offsetWidth;
+
+            if (actionType === "peek") {
+                doorActionText.textContent = "屏住呼吸，輕輕推開一條縫……";
+                doorBox.classList.add("door-peek");
+            } else {
+                doorActionText.textContent = "氣勢十足地一把推開房門！！";
+                doorBox.classList.add("door-slam", "animate-shake");
+            }
+
+            // 計算抽卡結果
+            const outcome = rollOutcome(actionType, userName, charName);
+
+            // 動畫播放 750ms 後揭示結果
+            setTimeout(() => {
+                doorBox.classList.add("hidden");
+                displayOutcome(outcome);
+                isAnimating = false;
+            }, 750);
+        }
+
+        // 機率判定與文本生成引擎
+        function rollOutcome(actionType, userName, charName) {
+            const rand = Math.random();
+            const openPrefix = actionType === "peek"
+                ? "你慢慢打開了一條縫，"
+                : "你一下子打開了門，";
+
+            let eventType = "normal";
+            // 累積機率區間判斷：
+            // 0.00 ~ 0.08 (8%): absent (夢角不在)
+            // 0.08 ~ 0.14 (6%): wear_user (穿了 User 的內褲)
+            // 0.14 ~ 0.22 (8%): diy (正在 DIY)
+            // 0.22 ~ 0.32 (10%): no_underwear (沒穿內褲)
+            // 0.32 ~ 1.00 (68%): normal (正常穿著男士內褲)
+            if (rand < 0.08) {
+                eventType = "absent";
+            } else if (rand < 0.14) {
+                eventType = "wear_user";
+            } else if (rand < 0.22) {
+                eventType = "diy";
+            } else if (rand < 0.32) {
+                eventType = "no_underwear";
+            } else {
+                eventType = "normal";
+            }
+
+            let storyText = "";
+            let tags = [];
+            let summaryShort = "";
+
+            if (eventType === "absent") {
+                const quote = pickRandom(WORD_BANK.absentQuotes);
+                storyText = `${openPrefix}你發現<span class="text-rose-600 font-black">${escapeHtml(charName)}</span>根本不在這裡。你轉過頭，他笑著看你。<span class="text-wineMid font-black">${quote}</span>`;
+                tags = [
+                    { label: "狀態：房間空無一人", color: "bg-purple-100 text-purple-800" },
+                    { label: "危機：背後被抓包！", color: "bg-rose-100 text-rose-800" }
+                ];
+                summaryShort = `背後抓包・${quote}`;
+            } 
+            else if (eventType === "wear_user") {
+                const wColor = pickRandom(WORD_BANK.womensColors);
+                const wPattern = pickRandom(WORD_BANK.womensPatterns);
+                const wType = pickRandom(WORD_BANK.womensTypes);
+                const action = pickRandom(WORD_BANK.crossdressActions);
+                const reaction = pickRandom(WORD_BANK.crossdressReactions);
+
+                storyText = `${openPrefix}你發現<span class="text-rose-600 font-black">${escapeHtml(charName)}</span>居然穿了<span class="text-pink-600 font-bold">${escapeHtml(userName)}</span>的<span class="underline decoration-rose-400 decoration-wavy underline-offset-4 text-rose-700 font-black">【${wColor}】的【${wPattern}${wType}】</span>！！！！！<br>他${action}，看起來${reaction}。`;
+                tags = [
+                    { label: `款式：${userName}的女士內褲`, color: "bg-pink-100 text-pink-800" },
+                    { label: `顏色：${wColor}`, color: "bg-rose-100 text-rose-800" },
+                    { label: `花紋：${wPattern}`, color: "bg-purple-100 text-purple-800" },
+                    { label: `版型：${wType}`, color: "bg-amber-100 text-amber-800" }
+                ];
+                summaryShort = `偷穿${userName}的${wColor}${wPattern}${wType}`;
+            } 
+            else if (eventType === "diy") {
+                const wColor = pickRandom(WORD_BANK.womensColors);
+                const wPattern = pickRandom(WORD_BANK.womensPatterns);
+                const wType = pickRandom(WORD_BANK.womensTypes);
+                const action = pickRandom(WORD_BANK.diyActions);
+                const reaction = pickRandom(WORD_BANK.diyReactions);
+
+                storyText = `${openPrefix}你發現<span class="text-rose-600 font-black">${escapeHtml(charName)}</span>居然拿了<span class="text-pink-600 font-bold">${escapeHtml(userName)}</span>的<span class="underline decoration-rose-500 decoration-wavy underline-offset-4 text-rose-700 font-black">【${wColor}】的【${wPattern}${wType}】</span>在 DIY！！！！！<br>撞見你的一瞬間，他${action}，看起來${reaction}。`;
+                tags = [
+                    { label: `道具：${userName}的貼身衣物`, color: "bg-rose-100 text-rose-800" },
+                    { label: `顏色：${wColor}`, color: "bg-pink-100 text-pink-800" },
+                    { label: `花紋：${wPattern}`, color: "bg-purple-100 text-purple-800" },
+                    { label: `版型：${wType}`, color: "bg-red-100 text-red-800" }
+                ];
+                summaryShort = `拿著${wColor}${wType}秘密DIY`;
+            } 
+            else if (eventType === "no_underwear") {
+                const action = pickRandom(WORD_BANK.actions);
+                const reaction = pickRandom(WORD_BANK.reactions);
+
+                storyText = `${openPrefix}你發現<span class="text-rose-600 font-black">${escapeHtml(charName)}</span><span class="text-red-600 font-black underline decoration-red-400 underline-offset-4">根本沒穿</span>！！！！！<br>他${action}，看起來${reaction}。`;
+                tags = [
+                    { label: "防護狀態：完全真空 (0%)", color: "bg-red-100 text-red-800" },
+                    { label: "視覺衝擊：MAX 級別", color: "bg-amber-100 text-amber-800" }
+                ];
+                summaryShort = `真空狀態・${action.slice(0, 10)}…`;
+            } 
+            else {
+                // 正常男士內褲
+                const mColor = pickRandom(WORD_BANK.mensColors);
+                const mPattern = pickRandom(WORD_BANK.mensPatterns);
+                const mType = pickRandom(WORD_BANK.mensTypes);
+                const action = pickRandom(WORD_BANK.actions);
+                const reaction = pickRandom(WORD_BANK.reactions);
+
+                storyText = `${openPrefix}你看到<span class="text-rose-600 font-black">${escapeHtml(charName)}</span>身上是<span class="text-wineMid font-black">【${mColor}】的【${mPattern}${mType}】</span>！<br>他${action}，看起來${reaction}。`;
+                tags = [
+                    { label: `顏色：${mColor}`, color: "bg-slate-100 text-slate-800" },
+                    { label: `花紋：${mPattern}`, color: "bg-indigo-50 text-indigo-800" },
+                    { label: `款式：${mType}`, color: "bg-rose-50 text-rose-800" }
+                ];
+                summaryShort = `${mColor}・${mPattern}${mType}`;
+            }
+
+            const eventMeta = EVENT_CATALOG.find(e => e.id === eventType);
+
+            return {
+                eventType,
+                eventMeta,
+                actionType,
+                userName,
+                charName,
+                storyText,
+                tags,
+                summaryShort,
+                timestamp: new Date().toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })
+            };
+        }
+
+        // ==========================================
+        // 5. 渲染結果卡片、特效與圖鑑更新
+        // ==========================================
+        function displayOutcome(outcome) {
+            const card = document.getElementById("resultCard");
+            const rarityBadge = document.getElementById("rarityBadge");
+            const achievementBadge = document.getElementById("achievementBadge");
+            const visualSummaryBox = document.getElementById("visualSummaryBox");
+            const storyOutput = document.getElementById("storyOutput");
+
+            // 重置卡片樣式
+            card.className = "rounded-3xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden animate-card-reveal";
+
+            // 根據稀有度套用邊框與發光特效
+            if (outcome.eventMeta.rarity === "SSR") {
+                card.classList.add("ssr-card-bg", "animate-glow-pulse");
+                rarityBadge.className = "inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black tracking-wider shadow-md bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 text-white";
+                rarityBadge.innerHTML = `<i class="fa-solid fa-crown text-amber-300"></i> SSR 隱藏劇情`;
+                triggerHeartConfetti(true);
+            } else if (outcome.eventMeta.rarity === "SR") {
+                card.classList.add("sr-card-bg");
+                rarityBadge.className = "inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black tracking-wider shadow-sm bg-gradient-to-r from-rose-500 to-orange-400 text-white";
+                rarityBadge.innerHTML = `<i class="fa-solid fa-bolt text-yellow-200"></i> SR 突發狀況`;
+                triggerHeartConfetti(false);
+            } else {
+                card.classList.add("r-card-bg");
+                rarityBadge.className = "inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black tracking-wider bg-rose-100 text-rose-700";
+                rarityBadge.innerHTML = `<i class="fa-solid fa-sparkles text-rose-500"></i> R 日常風景`;
+            }
+
+            // 檢查是否為新解鎖成就
+            const isNewUnlock = !unlockedEvents.has(outcome.eventType);
+            unlockedEvents.add(outcome.eventType);
+            try {
+                localStorage.setItem("dream_peek_unlocked", JSON.stringify([...unlockedEvents]));
+            } catch (e) {}
+
+            achievementBadge.innerHTML = `
+                <i class="fa-solid ${outcome.eventMeta.icon} text-rose-500"></i>
+                <span>事件：【${outcome.eventMeta.title}】</span>
+                ${isNewUnlock ? '<span class="ml-1 px-1.5 py-0.5 text-[10px] bg-rose-500 text-white rounded-md animate-bounce">NEW!</span>' : ''}
+            `;
+
+            // 渲染情報標籤
+            visualSummaryBox.innerHTML = outcome.tags.map(t => 
+                `<span class="px-2.5 py-1 rounded-lg font-bold ${t.color}">${t.label}</span>`
+            ).join("");
+
+            // 渲染劇情內容
+            storyOutput.innerHTML = outcome.storyText;
+
+            // 準備社群分享純文字文案
+            const plainStory = storyOutput.innerText.replace(/\n+/g, "\n");
+            const actionLabel = outcome.actionType === "peek" ? "稍稍偷看" : "直接打開門";
+            lastShareText = `【夢女偷看夢角內褲模擬器 💕】\n${outcome.userName} 選擇了「${actionLabel}」${outcome.charName} 的房門——\n\n${plainStory}\n\n✨ 觸發事件：【${outcome.eventMeta.rarity}・${outcome.eventMeta.title}】`;
+
+            card.classList.remove("hidden");
+
+            // 更新圖鑑與歷史紀錄
+            renderEncyclopedia();
+            addHistoryItem(outcome);
+        }
+
+        // 愛心五彩紙屑特效
+        function triggerHeartConfetti(isBig) {
+            if (typeof confetti !== "function") return;
+            confetti({
+                particleCount: isBig ? 65 : 30,
+                spread: isBig ? 80 : 55,
+                origin: { y: 0.6 },
+                colors: ['#F43F5E', '#EC4899', '#A855F7', '#FBBF24']
+            });
+        }
+
+        // ==========================================
+        // 6. 圖鑑與歷史紀錄 UI 更新
+        // ==========================================
+        function renderEncyclopedia() {
+            const grid = document.getElementById("encyclopediaGrid");
+            const counter = document.getElementById("collectionCounter");
+            const progressBar = document.getElementById("collectionProgressBar");
+
+            const unlockedCount = unlockedEvents.size;
+            const totalCount = EVENT_CATALOG.length;
+            const percent = Math.round((unlockedCount / totalCount) * 100);
+
+            counter.textContent = `${unlockedCount} / ${totalCount} 已解鎖`;
+            progressBar.style.width = `${percent}%`;
+
+            grid.innerHTML = EVENT_CATALOG.map(item => {
+                const isUnlocked = unlockedEvents.has(item.id);
+                if (isUnlocked) {
+                    return `
+                        <div class="p-2.5 rounded-2xl bg-gradient-to-b from-rose-50 to-white border border-rose-200 text-center space-y-1 shadow-sm transition-transform hover:-translate-y-0.5" title="${item.desc}">
+                            <div class="w-7 h-7 mx-auto rounded-full bg-rose-500 text-white flex items-center justify-center text-xs shadow-sm">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <div class="text-[10px] font-black text-rose-500">${item.rarity}</div>
+                            <div class="text-xs font-bold text-wineDark truncate">${item.title}</div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="p-2.5 rounded-2xl bg-slate-50/70 border border-dashed border-rose-200/70 text-center space-y-1 opacity-65" title="尚未解鎖此事件">
+                            <div class="w-7 h-7 mx-auto rounded-full bg-rose-100 text-rose-300 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-question"></i>
+                            </div>
+                            <div class="text-[10px] font-bold text-rose-300">${item.rarity}</div>
+                            <div class="text-xs font-medium text-rose-300">？？？</div>
+                        </div>
+                    `;
+                }
+            }).join("");
+        }
+
+        function addHistoryItem(outcome) {
+            drawHistory.unshift(outcome);
+            if (drawHistory.length > 30) drawHistory.pop();
+            renderHistoryList();
+        }
+
+        function renderHistoryList() {
+            const listEl = document.getElementById("historyList");
+            const countEl = document.getElementById("historyCount");
+            countEl.textContent = drawHistory.length;
+
+            if (drawHistory.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-6 text-xs text-rose-300 italic">
+                        還沒有偷看紀錄喔，快去門縫邊試試手氣吧～
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = drawHistory.map(item => {
+                const badgeStyle = item.eventMeta.rarity === "SSR"
+                    ? "bg-rose-600 text-white"
+                    : item.eventMeta.rarity === "SR"
+                        ? "bg-orange-400 text-white"
+                        : "bg-rose-100 text-rose-700";
+
+                const actionIcon = item.actionType === "peek" ? "fa-eye" : "fa-door-open";
+
+                return `
+                    <div class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-cream border border-rose-100 hover:border-rose-300 transition-colors text-xs">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="shrink-0 px-2 py-0.5 rounded-md font-black text-[10px] ${badgeStyle}">
+                                ${item.eventMeta.rarity}
+                            </span>
+                            <div class="truncate">
+                                <span class="font-bold text-wineDark">${escapeHtml(item.charName)}</span>
+                                <span class="text-wineMid/70 mx-1">·</span>
+                                <span class="text-rose-600 font-medium">${escapeHtml(item.summaryShort)}</span>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2 text-[11px] text-rose-400">
+                            <i class="fa-solid ${actionIcon}" title="${item.actionType === 'peek' ? '稍稍偷看' : '直接打開門'}"></i>
+                            <span>${item.timestamp}</span>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function clearHistory() {
+            drawHistory = [];
+            renderHistoryList();
+            showToast("已清空本次窺探紀錄");
+        }
+
+        // ==========================================
+        // 7. 複製文案與輔助工具
+        // ==========================================
+        function copyResultText() {
+            if (!lastShareText) return;
+
+            // 使用兼容性最高的 textarea + execCommand('copy') 確保在 iframe 中也能順利複製
+            const textArea = document.createElement("textarea");
+            textArea.value = lastShareText;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+                document.execCommand("copy");
+                showToast("已複製小劇場文案！快去社群分享吧 💕");
+            } catch (err) {
+                showToast("複製失敗，請手動選取文字複製");
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        }
+
+        let toastTimer = null;
+        function showToast(msg) {
+            const toast = document.getElementById("toastNotification");
+            const toastMsg = document.getElementById("toastMessage");
+            toastMsg.textContent = msg;
+
+            toast.classList.remove("opacity-0", "translate-y-4");
+            toast.classList.add("opacity-100", "translate-y-0");
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove("opacity-100", "translate-y-0");
+                toast.classList.add("opacity-0", "translate-y-4");
+            }, 2500);
+        }
+
+        // 防止 XSS 跳脫字元
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function (m) {
+                return {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                }[m];
+            });
+        }
+
+        // 背景微光愛心點綴生成
+        function spawnBackgroundHearts() {
+            const container = document.getElementById("floating-hearts-bg");
+            const positions = [
+                { top: "10%", left: "6%", size: "text-xl", delay: "0s" },
+                { top: "24%", right: "8%", size: "text-2xl", delay: "1s" },
+                { top: "55%", left: "4%", size: "text-lg", delay: "2s" },
+                { top: "75%", right: "6%", size: "text-xl", delay: "0.5s" },
+                { top: "88%", left: "12%", size: "text-2xl", delay: "1.5s" }
+            ];
+
+            positions.forEach(pos => {
+                const heart = document.createElement("i");
+                heart.className = `fa-solid fa-heart absolute text-rose-300/30 animate-float ${pos.size}`;
+                if (pos.top) heart.style.top = pos.top;
+                if (pos.left) heart.style.left = pos.left;
+                if (pos.right) heart.style.right = pos.right;
+                heart.style.animationDelay = pos.delay;
+                container.appendChild(heart);
+            });
+        }
+    </script>
+</body>
+</html>
